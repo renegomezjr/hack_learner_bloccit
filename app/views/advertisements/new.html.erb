@@ -1,0 +1,26 @@
+<h1>New Advertisement</h1>
+<div class="row">
+  <div class="col-md-8">
+
+    <%= form_for @advertisement do |f| %>
+      <div class="form-group">
+        <%= f.label :title %>
+        <%= f.text_field :title, class:"form-control", placeholder: "Enter Ad Title" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :copy %>
+        <%= f.text_area :copy, rows:8, class:"form-control", placeholder:"Enter ad info here." %>
+      </div>
+
+      <div class="form-group">
+      <%= f.label :price %>
+      <%= f.number_field :price, class:"form-control", placeholder: "$" %>
+      </div>
+
+      <div class="form-group">
+      <%= f.submit "Save" %>
+      </div>
+    <% end %>
+  </div>
+</div>
