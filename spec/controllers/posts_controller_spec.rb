@@ -39,7 +39,6 @@ RSpec.describe PostsController, type: :controller do
       get :new
       expect(response).to have_http_status(:success)
     end
-  end
 
     it "renders the #new view" do
       get :new
@@ -50,6 +49,7 @@ RSpec.describe PostsController, type: :controller do
       get :new
       expect(assigns(:post)).not_to be_nil
     end
+  end
 
     describe "POST create" do
       it "increases the number of Post by 1" do
@@ -68,11 +68,23 @@ RSpec.describe PostsController, type: :controller do
       end
     end
 
-  # describe "GET #edit" do
+  # describe "GET edit" do
   #   it "returns http success" do
-  #     get :edit
+  #     get :edit, {id: my_post.id}
   #     expect(response).to have_http_status(:success)
   #   end
+  #
+  #   it "renders the #edit view" do
+  #     get :edit, {id:my_post.id}
+  #     expect(response).to render_template :edit
+  #   end
+  #
+  #   it "assigns post to be updated to @post" do
+  #     get :edit, {id: my_post.id}
+  #     post_instance = assigns(:post)
+  #     expect(post_instance.id).to eq my_post.id
+  #     expect(post_instance.title).to eq my_post.title
+  #     expect(post_instance.body).to eq my_post.body
+  #   end
   # end
-
 end
