@@ -1,0 +1,31 @@
+<h1>Edit Question</h1>
+<div class="row">
+  <div class="col-md-4">
+    <p>Guidelines for Questions</p>
+    <ul>
+      <li>Make sure you ask your questions in a nice way.</li>
+      <li>Try not to hurt our feelings.</li>
+      <li>Try not to ask stupid questions</li>
+    </ul>
+  </div>
+  <div class="col-md-8">
+    <%= form_for @question do |f| %>
+    <div class="form-group">
+      <%= f.label :title %>
+      <%= f.text_field :title, class: "form-control", placeholder: "Enter title question here." %>
+    </div>
+    <div class="form-group">
+      <%= f.label :body %>
+      <%= f.text_area :body, class: "form-control", placeholder: "Enter question body here." %>
+    </div>
+    <div class="form-group">
+      <%= f.label :resolved %>
+      <%= f.check_box :resolved %>
+    </div>
+    <div class="form-group">
+      <%= f.submit "Save" %>
+    </div>
+  </div>
+      <% end %>
+  </div>
+</div>
