@@ -51,7 +51,7 @@ class TopicsController < ApplicationController
       flash[:notice] = "\"#{@topic.name}\" was deleted successfully."
       redirect_to action: :index
     else
-      flash[:error] = "There was a problem deleting your post. Please try again."
+      flash[:error] = "There was a problem deleting your topic. Please try again."
       render :show
     end
   end
