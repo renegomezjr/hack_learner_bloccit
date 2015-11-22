@@ -2,11 +2,13 @@ class User < ActiveRecord::Base
 
   before_save :normalize_name, :downcase_email, on: :create
       def normalize_name
-      name_array = []
-      self.name.split.each do |f|
-        name_array << f.capitalize
+        if self.name
+          name_array = []
+          name.split.each do |f|
+            name_array << f.capitalize
+            end
+          self.name = name_array.join(" ")
         end
-      self.name = name_array.join(" ")
       end
 
       def downcase_email
