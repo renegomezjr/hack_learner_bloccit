@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'shoulda'
 
 RSpec.describe User, type: :model do
   let(:user) { User.create!(name: "bloccit user", email: "user@bloccit.com", password: "password") }
