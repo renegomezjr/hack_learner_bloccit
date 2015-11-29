@@ -1,7 +1,9 @@
 class TopicsController < ApplicationController
 
   before_action :require_sign_in, except: [:index, :show]
-  before_action :authorize_user, except: [:index, :show]
+  before_action :only_mods_admins, only: [:edit, :update]
+  before_action :admin_user, only: [:new, :create, :destroy]
+
 
   def index
     @topics = Topic.all
@@ -35,7 +37,7 @@ class TopicsController < ApplicationController
     @topic.assign_attributes(topic_params)
 
     if @topic.save
-      flash[:notic] = "Topic was updated!"
+      flash[:notice] = "Topic was updated!"
       redirect_to @topic
     else
       flash[:error] = "Error saving topic. Please try again."
@@ -60,9 +62,15 @@ class TopicsController < ApplicationController
     params.require(:topic).permit(:name, :description, :public)
   end
 
-  def authorize_user
+  def admin_user
     unless current_user.admin?
       flash[:error] = "You must be an admin to do that."
+      redirect_to topics_path
+    end
+  end
+
+  def only_mods_admins
+    unless current_user.moderator? || current_user.admin?
       redirect_to topics_path
     end
   end
