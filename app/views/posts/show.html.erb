@@ -4,6 +4,9 @@
     submitted <%= time_ago_in_words(@post.created_at) %> ago by <%= @post.user.name %>
   </small>
 </h1>
+<p class="lead">
+   <%= render @post.ratings %>
+</p>
 <div class="row">
   <div class="col-md-8">
     <%= render partial: "labels/list", locals: { labels: @post.labels } %>

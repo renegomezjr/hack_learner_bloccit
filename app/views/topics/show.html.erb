@@ -8,6 +8,11 @@
 <div class="row">
   <div class="col-md-8">
     <p class="lead">
+      <% if @topic.rating %>
+        <%= link_to rating.severity, "", class: "btn btn-info" %>
+      <% end %>
+    </p>
+    <p class="lead">
     <%= render partial: "labels/list", locals: { labels: @topic.labels } %>
     <br/>
     <%= @topic.description %>

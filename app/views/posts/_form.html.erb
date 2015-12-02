@@ -1,3 +1,6 @@
+<div class="form-group">
+  <%= render partial: 'ratings/form', locals: { f: f, topic: @topic, ratings: @post.ratings } %>
+</div>
 <%= form_for [topic, post] do |f| %>
   <div class="form-group">
   <% if post.errors.any? %>

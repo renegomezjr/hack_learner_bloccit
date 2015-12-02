@@ -1,0 +1,8 @@
+<div class="form-group">
+<%= f.label :rating %>
+<% if @topic.rating %>
+  <%= f.select :rating, options_for_select(Rating.severities, Rating.severities[rating.severity]) %>
+<% else %>
+  <%= f.select :rating, options_for_select(Rating.severities) %>
+<% end %>
+</div>
