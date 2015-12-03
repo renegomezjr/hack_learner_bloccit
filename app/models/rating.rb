@@ -1,12 +1,13 @@
 class Rating < ActiveRecord::Base
-  has_many :topics, through: :rates, source: :ratable, source_type: :Topic
-  has_many :posts, through: :rates, source: :ratable, source_type: :Post
-  has_many :rates
+  enum severity: [ :PG, :PG13, :R ]
 
-  def self.update_ratings(rating_string)
-    Rating.find_or_create_by(severity: rating_string.to_i)
+  has_many :topics
+  has_many :posts
+
+  before_save { self.severity ||= :PG }
+
+  def self.update_rating(rating)
+    Rating.find_or_create_by(severity: rating.to_i)
   end
 
-
-  enum severity: [:PG, :PG13, :R]
 end

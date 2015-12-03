@@ -15,10 +15,11 @@ class PostsController < ApplicationController
     @topic = Topic.find(params[:topic_id])
     @post = @topic.posts.build(post_params)
     @post.user = current_user
+    @post.rating = Rating.update_rating(params[:post][:rating])
+    @post.labels = Label.update_labels(params[:post][:labels])
+
 
     if @post.save
-      @post.ratings = Rating.update_ratings(params[:post][:ratings])
-      @post.labels = Label.update_labels(params[:post][:labels])
       flash[:notice] = "Post was saved"
       redirect_to [@topic, @post]
     else
@@ -36,7 +37,7 @@ class PostsController < ApplicationController
     @post.assign_attributes(post_params)
 
     if @post.save
-      @post.ratings = Rating.update_ratings(params[:post][:ratings])
+      @post.rating = Rating.update_rating(params[:post][:rating])
       @post.labels = Label.update_labels(params[:post][:labels])
       flash[:notice] = "Post was updated"
       redirect_to [@post.topic, @post]

@@ -1,6 +1,3 @@
-<div class="form-group">
-  <%= render partial: 'ratings/form', locals: { f: f, topic: @topic, ratings: @post.ratings } %>
-</div>
 <%= form_for [topic, post] do |f| %>
   <div class="form-group">
   <% if post.errors.any? %>
@@ -24,6 +21,11 @@
   <div class="form-group">
     <%= render partial: "labels/form", locals: { f: f, topic: @topic, labels: @post.labels } %>
   </div>
+
+  <div class="form-group">
+    <%= render partial: 'ratings/form', locals: { f: f, r: @post.rating } %>
+  </div>
+
   <div class="form-group">
     <%= f.submit "Save", class: 'btn btn-success' %>
   </div>

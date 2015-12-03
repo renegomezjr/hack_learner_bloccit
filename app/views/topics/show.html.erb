@@ -1,4 +1,4 @@
-<h1><%= @topic.name %></h1>
+<h1><%= @topic.name %> <%= render partial: "ratings/display", locals: { r: @topic.rating} %></h1>
 
 <% if user_is_authorized_for_topics? %>
 <%= link_to "Edit Topic", edit_topic_path, class: "btn btn-success" %>
@@ -7,11 +7,6 @@
 
 <div class="row">
   <div class="col-md-8">
-    <p class="lead">
-      <% if @topic.rating %>
-        <%= link_to rating.severity, "", class: "btn btn-info" %>
-      <% end %>
-    </p>
     <p class="lead">
     <%= render partial: "labels/list", locals: { labels: @topic.labels } %>
     <br/>
