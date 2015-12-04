@@ -31,6 +31,7 @@ RSpec.describe Post, type: :model do
     it "should respond to body" do
       expect(post).to respond_to(:body)
     end
+
   end
 
   describe "voting" do
@@ -76,6 +77,21 @@ RSpec.describe Post, type: :model do
         post.votes.create!(value: -1)
         expect(post.rank).to eq (old_rank - 1)
       end
+    end
+  end
+  describe "after post create create vote" do
+    it "up_votes a post after created" do #I got this one.
+      expect(post.up_votes).to eq(1)
+    end
+
+    it "calls create_vote when a post is created" do
+      post = topic.posts.new(title: RandomData.random_sentence, body: RandomData.random_paragraph, user: user) #I got this part
+      expect(post).to receive(:create_vote)
+      post.save #I did not get this part
+    end
+
+    it "associates the vote with the owner of the post" do #I did not get this.
+      expect(post.votes.first.user).to eq(post.user)
     end
   end
 end
