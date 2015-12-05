@@ -33,6 +33,7 @@ group :production do
 # Use ActiveModel has_secure_password
 gem 'bcrypt'
 gem 'bootstrap-sass'
+gem 'figaro', '1.0'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
