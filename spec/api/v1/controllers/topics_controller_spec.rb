@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Api::V1::TopicsController, type: :controller do
   let(:my_user) { create(:user) }
   let(:my_topic) { create(:topic) }
+  let(:my_post) { create(:post, topic: my_topic, user: my_user) }
 
   context "unauthenticated user" do
     it "GET index returns http success" do
@@ -13,6 +14,12 @@ RSpec.describe Api::V1::TopicsController, type: :controller do
     it "GET show returns http success" do
       get :show, id: my_topic.id
       expect(response).to have_http_status(:success)
+    end
+
+    it "GET show returns child posts" do
+      get :show, id: my_topic.id
+      response_hash = JSON.parse response.body
+      expect(response_hash['posts']).to_not be_nil
     end
 
     it "PUT update returns http unauthenticated" do
@@ -46,6 +53,12 @@ RSpec.describe Api::V1::TopicsController, type: :controller do
       expect(response).to have_http_status(:success)
     end
 
+    it "GET show returns child posts" do
+      get :show, id: my_topic.id
+      response_hash = JSON.parse response.body
+      expect(response_hash['posts']).to_not be_nil
+    end
+
     it "PUT update returns http forbidden" do
       put :update, id: my_topic.id, topic: {name: "Topic Name", description: "Topic description"}
       expect(response).to have_http_status(403)
@@ -67,6 +80,7 @@ RSpec.describe Api::V1::TopicsController, type: :controller do
       my_user.admin!
       controller.request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Token.encode_credentials(my_user.auth_token)
       @new_topic = build(:topic)
+      @new_post = build(:post)
     end
 
     describe "PUT update" do
@@ -103,6 +117,25 @@ RSpec.describe Api::V1::TopicsController, type: :controller do
         expect(@new_topic.description).to eq hashed_json["description"]
       end
     end
+
+    describe "POST create post" do
+      before { post :create_post, id: my_topic.id, post: {title: @new_post.title, body: @new_post.body}}
+
+      it "returns http success" do
+        expect(response).to have_http_status(:success)
+      end
+
+      it "returns json content type" do
+        expect(response.content_type).to eq 'application/json'
+      end
+
+      it "creates a topic with the correct attributes" do
+        hashed_json = JSON.parse(response.body)
+        expect(@new_post.title).to eq hashed_json["title"]
+        expect(@new_post.body).to eq hashed_json["body"]
+      end
+    end
+
 
     describe "DELETE destroy" do
       before { delete :destroy, id: my_topic.id }
