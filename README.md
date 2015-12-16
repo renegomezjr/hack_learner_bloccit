@@ -1,6 +1,6 @@
 ## Bloccit: a Reddit replica to teach the fundamentals of web development and Rails.
 
-Made with my mentor at [Bloc](http://bloc.io)
+Made with my mentor Ben Simmons at [Bloc](http://bloc.io)
 
 == README
 
